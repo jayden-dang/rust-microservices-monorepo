@@ -1,4 +1,7 @@
 #+TITLE: HTTPS Request
+#+AUTHOR: Dang Quang Vu
+#+EMAIL: jayden.dangvu@gmail.com
+#+DESCRIPTION: This file only work with Emacs
 
 * Configs
 #+name: host
