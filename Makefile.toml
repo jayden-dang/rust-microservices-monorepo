@@ -1,0 +1,11 @@
+[tasks.build]
+command = "cargo"
+args = ["build"]
+
+[tasks.dev]
+command = "cargo"
+args = ["run"]
+
+[tasks.test]
+command = "cargo"
+args = ["nextest", "run"]
