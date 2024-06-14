@@ -4,11 +4,13 @@ use axum::{
   Json, Router,
 };
 use serde::{Deserialize, Serialize};
+use tracing::info;
 
 #[tokio::main]
 async fn main() {
   // initialize tracing
   tracing_subscriber::fmt::init();
+  let num = num_cpus::get();
 
   // build our application with a route
   let app = Router::new()
@@ -19,6 +21,7 @@ async fn main() {
 
   // run our app with hyper, listening globally on port 3000
   let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+  info!("Server is running on port 3000, with {num} cpu");
   axum::serve(listener, app).await.unwrap();
 }
 

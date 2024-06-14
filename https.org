@@ -3,20 +3,24 @@
 * Configs
 #+name: host
 #+BEGIN_SRC elisp
-  "http://localhost:3000"
+"http://localhost:3000"
 #+END_SRC
 
-#+name: my_setting
+#+name: headers
 #+BEGIN_SRC elisp
-"Content-Type: application/json"
-"User-Agent: Emacs30"
+"Content-Type: application/json
+User-Agent: Emacs30"
 #+END_SRC
+
+#+RESULTS: headers
+: Content-Type: application/json
+: User-Agent: Emacs30
 
 * API
 ** Index
-#+BEGIN_SRC restclient :var host=host :var myapp=my_setting
+#+BEGIN_SRC restclient :var host=host :var headers=headers
 GET :host/
-:myapp
+:headers
 #+END_SRC
 
 #+RESULTS:
@@ -26,15 +30,14 @@ GET http://localhost:3000/
 HTTP/1.1 200 OK
 content-type: text/plain; charset=utf-8
 content-length: 13
-date: Fri, 14 Jun 2024 01:42:05 GMT
-Request duration: 0.004361s
+date: Fri, 14 Jun 2024 01:58:01 GMT
+Request duration: 2.012351s
 #+END_SRC
 
 ** User
-
-#+BEGIN_SRC restclient :var host=host :var myapp=my_setting
+#+BEGIN_SRC restclient :var host=host :var headers=headers
 POST :host/users
-:myapp
+:headers
 {
   "username" : "helloworld"
 }
@@ -50,6 +53,6 @@ POST :host/users
 // HTTP/1.1 201 Created
 // content-type: application/json
 // content-length: 35
-// date: Fri, 14 Jun 2024 01:40:37 GMT
-// Request duration: 0.004913s
+// date: Fri, 14 Jun 2024 01:54:18 GMT
+// Request duration: 0.021560s
 #+END_SRC
