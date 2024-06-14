@@ -24,12 +24,12 @@ Welcome to Rust Monorepo Microservices, a framework designed to streamline the d
 This project aims to provide developers with a cohesive toolkit for managing multiple microservices within a single repository. By adopting a monorepo strategy, it simplifies code sharing, improves modularity, and enhances overall project maintainability. Rust's performance and safety features are leveraged to ensure robustness and efficiency in distributed systems.
 
 * Features
-+ Monorepo Efficiency: Manage multiple microservices in a unified repository.
-+ Simplified Development: Streamline workflows with centralized code management.
-+ Enhanced Modularity: Promote code reuse and maintainability across services.
-+ Dependency Management: Simplify handling dependencies between microservices.
-+ Scalability: Utilize Rust's performance advantages for scalable architectures.
-+ Safety: Benefit from Rust's strong type system and memory safety guarantees.
++ *Monorepo Efficiency*: Manage multiple microservices in a unified repository.
++ *Simplified Development*: Streamline workflows with centralized code management.
++ *Enhanced Modularity*: Promote code reuse and maintainability across services.
++ *Dependency Management*: Simplify handling dependencies between microservices.
++ *Scalability*: Utilize Rust's performance advantages for scalable architectures.
++ *Safety*: Benefit from Rust's strong type system and memory safety guarantees.
 
 * Get Started
 ** Prerequisites
