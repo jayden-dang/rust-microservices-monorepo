@@ -1,0 +1,75 @@
+#+TITLE: Rust Monorepo Microservices
+#+AUTHOR: Dang Quang Vu
+#+EMAIL: jayden.dangvu@gmail.com
+#+SETUPFILE: ~/.emacs.d/org-themes/src/readtheorg_inline/readtheorg_inline.theme
+#+HTML_HEAD: <style>pre.src{background:#343131;color:white;} </style>
+
+
+#+begin_quote
+Welcome to Rust Monorepo Microservices, a framework designed to streamline the development of scalable microservice architectures in Rust using a monorepository approach.
+#+end_quote
+
+* Table of Contents :TOC:
+- [[#overview][Overview]]
+- [[#features][Features]]
+- [[#get-started][Get Started]]
+  - [[#prerequisites][Prerequisites]]
+  - [[#installation][Installation]]
+  - [[#usage][Usage]]
+- [[#contributing][Contributing]]
+- [[#license][License]]
+- [[#acknowledgments][Acknowledgments]]
+
+* Overview
+This project aims to provide developers with a cohesive toolkit for managing multiple microservices within a single repository. By adopting a monorepo strategy, it simplifies code sharing, improves modularity, and enhances overall project maintainability. Rust's performance and safety features are leveraged to ensure robustness and efficiency in distributed systems.
+
+* Features
++ Monorepo Efficiency: Manage multiple microservices in a unified repository.
++ Simplified Development: Streamline workflows with centralized code management.
++ Enhanced Modularity: Promote code reuse and maintainability across services.
++ Dependency Management: Simplify handling dependencies between microservices.
++ Scalability: Utilize Rust's performance advantages for scalable architectures.
++ Safety: Benefit from Rust's strong type system and memory safety guarantees.
+
+* Get Started
+** Prerequisites
++ Rust: Version 1.79.0
++ Node Package Manager: Bun Package Manager
+  #+begin_quote
+curl -fsSL https://bun.sh/install | bash
+  #+end_quote
++ PostgreSQL
+** Installation
++ Cargo Make:
+  #+begin_quote
+cargo install cargo-make
+  #+end_quote
+
++ Cargo Nextest:
+  #+begin_quote
+cargo install cargo-nextest
+  #+end_quote
+
++ Build
+#+begin_quote
+cargo make build
+#+end_quote
+
++ Run
+#+begin_quote
+cargo make run
+#+end_quote
+
+** Usage
+- Customize configurations and functionalities of individual microservices as per your project requirements.
+- Integrate new microservices or migrate existing ones seamlessly within the monorepo structure.
+
+* Contributing
+- Contributions are welcome! Please fork the repository and submit pull requests to contribute new features, improvements, or bug fixes.
+
+* License
+- This project is licensed under the MIT License - see the LICENSE file for details.
+
+* Acknowledgments
+- Inspired by the need for scalable, maintainable microservice architectures in Rust.
+- Built with love by the Rust community.
