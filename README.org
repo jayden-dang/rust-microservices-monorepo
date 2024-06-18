@@ -9,17 +9,6 @@
 Welcome to Rust Monorepo Microservices, a framework designed to streamline the development of scalable microservice architectures in Rust using a monorepository approach.
 #+end_quote
 
-* Table of Contents :TOC:
-- [[#overview][Overview]]
-- [[#features][Features]]
-- [[#get-started][Get Started]]
-  - [[#prerequisites][Prerequisites]]
-  - [[#installation][Installation]]
-  - [[#usage][Usage]]
-- [[#contributing][Contributing]]
-- [[#license][License]]
-- [[#acknowledgments][Acknowledgments]]
-
 * Overview
 This project aims to provide developers with a cohesive toolkit for managing multiple microservices within a single repository. By adopting a monorepo strategy, it simplifies code sharing, improves modularity, and enhances overall project maintainability. Rust's performance and safety features are leveraged to ensure robustness and efficiency in distributed systems.
 
@@ -34,11 +23,19 @@ This project aims to provide developers with a cohesive toolkit for managing mul
 * Get Started
 ** Prerequisites
 + Rust: Version 1.79.0
-+ Node Package Manager: Bun Package Manager
-  #+begin_quote
-curl -fsSL https://bun.sh/install | bash
-  #+end_quote
 + PostgreSQL
+
+** Techstack
++ Axum - Http Method
++ Tokio - Concurrency
++ sqlx - seaORM: Query
++ bb8-redis - Redis
++ Opentelemetry - Tracing
++ gRPC - tonic/protobuf
++ AWS - EC2 / S3
++ Github Actions
++ RabbitMq
+
 ** Installation
 + Cargo Make:
   #+begin_quote
@@ -48,6 +45,11 @@ cargo install cargo-make
 + Cargo Nextest:
   #+begin_quote
 cargo install cargo-nextest
+  #+end_quote
+
++ Cargo Watch
+  #+begin_quote
+cargo install cargo-watch
   #+end_quote
 
 + Build

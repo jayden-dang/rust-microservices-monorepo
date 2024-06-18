@@ -4,7 +4,7 @@ args = ["build"]
 
 [tasks.dev]
 command = "cargo"
-args = ["run"]
+args = ["watch", "-x", "build", "-x", "test", "-x" , "run"]
 
 [tasks.test]
 command = "cargo"
