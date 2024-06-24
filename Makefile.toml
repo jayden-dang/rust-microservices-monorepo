@@ -4,6 +4,7 @@ args = ["build"]
 
 [tasks.dev]
 command = "cargo"
+install_crate = "cargo-nextest"
 dependencies = ["test"]
 args = ["watch", "-x" , "run"]
 
