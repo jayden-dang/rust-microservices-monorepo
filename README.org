@@ -28,7 +28,11 @@ This project aims to provide developers with a cohesive toolkit for managing mul
 ** Techstack
 + Axum - Http Method
 + Tokio - Concurrency
-+ sqlx - seaORM: Query
++ sqlx | seaORM | Diesel:  Query
+  + Sqlx: Raw Query -> Performance Cao;
+  + ORM:
+    + SeaORM: Dễ -> Syntax -> Newbie
+    + Diesel: Sqlx <> seaOrm. -> Trung bình khó -> Syntax Macros -> Intermediate
 + bb8-redis - Redis
 + Opentelemetry - Tracing
 + gRPC - tonic/protobuf
