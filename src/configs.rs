@@ -2,6 +2,8 @@ use config::ConfigError;
 use dotenv::var;
 use serde::Deserialize;
 
+use crate::{errors::AppError, AppResult};
+
 #[derive(Deserialize)]
 pub struct WebConfig {
   pub addr: String,
@@ -40,22 +42,24 @@ pub struct ProdEnv {
 }
 
 impl ProdConfig {
-  pub fn from_env() -> Result<ProdConfig, ConfigError> {
+  pub fn from_env() -> AppResult<ProdConfig> {
     match var("ENV").as_deref() {
       Ok("prod") => {
         let config = config::Config::builder()
           .add_source(config::Environment::default())
           .build()
-          .expect("Conn't loading Env")
-          .try_deserialize::<ProdEnv>()?;
+          .map_err(AppError::Config)?
+          .try_deserialize::<ProdEnv>()
+          .map_err(AppError::Config)?;
         Ok(ProdConfig { web: config.app.web, postgres: config.app.postgres })
       },
       _ => {
         let config = config::Config::builder()
           .add_source(config::Environment::default())
           .build()
-          .expect("Conn't loading Env")
-          .try_deserialize::<DevEnv>()?;
+          .map_err(AppError::Config)?
+          .try_deserialize::<DevEnv>()
+          .map_err(AppError::Config)?;
         Ok(ProdConfig { web: config.app.devweb, postgres: config.app.devpostgres })
       },
     }
