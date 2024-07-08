@@ -6,7 +6,7 @@
 * Configs
 #+name: host
 #+BEGIN_SRC elisp
-"http://localhost:8080"
+"http://localhost:3333"
 #+END_SRC
 
 #+name: headers
@@ -25,15 +25,17 @@ GET :host/hello
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "error": "Not Found"
+  "msg": "hello"
 }
-// GET http://localhost:8080/hello
-// HTTP/1.1 404 Not Found
+// GET http://localhost:3333/hello
+// HTTP/1.1 202 Accepted
 // content-type: application/json
-// content-length: 21
-// date: Wed, 26 Jun 2024 14:36:32 GMT
-// Request duration: 0.004924s
+// content-length: 15
+// date: Mon, 08 Jul 2024 09:54:37 GMT
+// Request duration: 0.008933s
 #+END_SRC
+
+#+RESULTS:
 
 ** User
 #+BEGIN_SRC restclient :var host=host :var headers=headers
