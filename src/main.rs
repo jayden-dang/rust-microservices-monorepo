@@ -1,9 +1,9 @@
 use std::{env, sync::Arc};
 
 use axum::{
-  extract::Path,
+  extract::{Path, Request},
   http::{Method, StatusCode, Uri},
-  middleware,
+  middleware::{self, Next},
   response::{IntoResponse, Response},
   routing::get,
   Extension, Json, Router,
@@ -23,9 +23,10 @@ async fn main() {
   let pool = initialed_db(&cfg.postgres.dsn, cfg.postgres.max_conns).await;
 
   let app = Router::new()
-    .route("/:msg", get(say_hello))
-    .layer(middleware::map_response(mw_map_response))
-    .layer(Extension(Arc::new(pool)));
+    .route("/:msg", get(say_hello)) // auth
+    .layer(middleware::map_response(mw_map_response)) // 1
+    .layer(middleware::from_fn_with_state(pool.clone(), mw_auth)) // 2
+    .with_state(Arc::new(pool));
   info!("Connect Database successfully");
 
   info!("Server is running on port: {}", cfg.web.addr);
@@ -49,4 +50,9 @@ pub async fn mw_map_response(uri: Uri, req_method: Method, res: Response) -> Res
   info!("->> Method: {}", req_method.to_string());
   info!("->> Uri: {}", uri.to_string());
   (StatusCode::ACCEPTED, res).into_response()
+}
+
+pub async fn mw_auth(req: Request, next: Next) -> AppResult<Response> {
+  info!("->> MIDDLEWARE AUTH");
+  Ok(next.run(req).await)
 }

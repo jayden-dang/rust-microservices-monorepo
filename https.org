@@ -31,8 +31,8 @@ GET :host/hello
 // HTTP/1.1 202 Accepted
 // content-type: application/json
 // content-length: 15
-// date: Mon, 08 Jul 2024 09:54:37 GMT
-// Request duration: 0.008933s
+// date: Mon, 08 Jul 2024 11:06:06 GMT
+// Request duration: 0.002391s
 #+END_SRC
 
 #+RESULTS:
