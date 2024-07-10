@@ -1,7 +1,7 @@
 use dotenv::var;
 use serde::Deserialize;
 
-use crate::{errors::AppError, AppResult};
+use crate::{error::AppError, AppResult};
 
 #[derive(Deserialize)]
 pub struct WebConfig {

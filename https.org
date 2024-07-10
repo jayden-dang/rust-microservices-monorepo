@@ -31,28 +31,26 @@ GET :host/hello
 // HTTP/1.1 202 Accepted
 // content-type: application/json
 // content-length: 15
-// date: Mon, 08 Jul 2024 11:06:06 GMT
-// Request duration: 0.002391s
+// date: Wed, 10 Jul 2024 08:55:00 GMT
+// Request duration: 0.033504s
 #+END_SRC
-
-#+RESULTS:
 
 ** User
 #+BEGIN_SRC restclient :var host=host :var headers=headers
-GET :host/user/1111
+GET :host/user/1000
 :headers
 #+END_SRC
 
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "pk_user_id": 1111,
-  "username": "aaaa"
+  "pk_user_id": 1000,
+  "username": "user1"
 }
-// GET http://localhost:3333/user/1111
+// GET http://localhost:3333/user/1000
 // HTTP/1.1 202 Accepted
 // content-type: application/json
-// content-length: 37
-// date: Wed, 10 Jul 2024 07:10:31 GMT
-// Request duration: 0.007594s
+// content-length: 38
+// date: Wed, 10 Jul 2024 08:55:08 GMT
+// Request duration: 0.013101s
 #+END_SRC

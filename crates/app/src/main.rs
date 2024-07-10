@@ -1,4 +1,5 @@
-use std::sync::Arc;
+use core::{config::ProdConfig, error::AppError, AppResult};
+use infra::initialed_db;
 
 use axum::{
   extract::{Path, Request, State},
@@ -9,11 +10,9 @@ use axum::{
   Json, Router,
 };
 use dotenv::dotenv;
-use rust_microservice::{configs::ProdConfig, dbs::initialed_db, errors::AppError, AppResult};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use sqlx::{prelude::FromRow, PgPool};
-use tracing::info;
 use uuid::Uuid;
 
 #[tokio::main]
@@ -30,15 +29,12 @@ async fn main() {
     .layer(middleware::map_response(mw_map_response)) // 1
     .layer(middleware::from_fn_with_state(pool.clone(), mw_auth)) // 2
     .with_state(pool);
-  info!("Connect Database successfully");
 
-  info!("Server is running on port: {}", cfg.web.addr);
   let listener = tokio::net::TcpListener::bind(cfg.web.addr).await.unwrap();
   axum::serve(listener, app).await.unwrap();
 }
 
 pub async fn say_hello(Path(msg): Path<String>) -> AppResult<Json<serde_json::Value>> {
-  info!("->> Function Say Hello");
   if msg.is_empty() {
     Err(AppError::NotFound)
   } else {
@@ -68,14 +64,9 @@ pub async fn get_user(State(db): State<PgPool>, Path(id): Path<UserId>) -> AppRe
 
 pub async fn mw_map_response(uri: Uri, req_method: Method, res: Response) -> Response {
   let uuid = Uuid::new_v4();
-  info!("->> MAP RESPONSE");
-  info!("->> UUid: {}", uuid.to_string());
-  info!("->> Method: {}", req_method.to_string());
-  info!("->> Uri: {}", uri.to_string());
   (StatusCode::ACCEPTED, res).into_response()
 }
 
 pub async fn mw_auth(req: Request, next: Next) -> AppResult<Response> {
-  info!("->> MIDDLEWARE AUTH");
   Ok(next.run(req).await)
 }
