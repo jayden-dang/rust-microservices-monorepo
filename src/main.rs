@@ -1,16 +1,18 @@
-use std::{env, sync::Arc};
+use std::sync::Arc;
 
 use axum::{
-  extract::{Path, Request},
+  extract::{Path, Request, State},
   http::{Method, StatusCode, Uri},
   middleware::{self, Next},
   response::{IntoResponse, Response},
   routing::get,
-  Extension, Json, Router,
+  Json, Router,
 };
-use dotenv::{dotenv, var};
+use dotenv::dotenv;
 use rust_microservice::{configs::ProdConfig, dbs::initialed_db, errors::AppError, AppResult};
+use serde::{Deserialize, Serialize};
 use serde_json::json;
+use sqlx::{prelude::FromRow, PgPool};
 use tracing::info;
 use uuid::Uuid;
 
@@ -24,9 +26,10 @@ async fn main() {
 
   let app = Router::new()
     .route("/:msg", get(say_hello)) // auth
+    .route("/user/:id", get(get_user))
     .layer(middleware::map_response(mw_map_response)) // 1
     .layer(middleware::from_fn_with_state(pool.clone(), mw_auth)) // 2
-    .with_state(Arc::new(pool));
+    .with_state(pool);
   info!("Connect Database successfully");
 
   info!("Server is running on port: {}", cfg.web.addr);
@@ -41,6 +44,26 @@ pub async fn say_hello(Path(msg): Path<String>) -> AppResult<Json<serde_json::Va
   } else {
     Ok(Json(json!({"msg" : msg})))
   }
+}
+
+#[derive(Serialize, FromRow)]
+pub struct User {
+  pub pk_user_id: i64,
+  pub username: String,
+}
+
+#[derive(Deserialize)]
+pub struct UserId {
+  pub id: i64,
+}
+
+pub async fn get_user(State(db): State<PgPool>, Path(id): Path<UserId>) -> AppResult<Json<User>> {
+  let user: User = sqlx::query_as::<_, User>(r#"SELECT * FROM "user"."tbl_users" WHERE pk_user_id = $1"#)
+    .bind(id.id)
+    .fetch_optional(&db)
+    .await?
+    .ok_or(AppError::NotFound)?;
+  Ok(Json(user))
 }
 
 pub async fn mw_map_response(uri: Uri, req_method: Method, res: Response) -> Response {

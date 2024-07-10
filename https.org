@@ -39,23 +39,20 @@ GET :host/hello
 
 ** User
 #+BEGIN_SRC restclient :var host=host :var headers=headers
-POST :host/users
+GET :host/user/1111
 :headers
-{
-  "username" : "jaydendang"
-}
 #+END_SRC
 
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "id": 1337,
-  "username": "jaydendang"
+  "pk_user_id": 1111,
+  "username": "aaaa"
 }
-// POST http://localhost:3000/users
-// HTTP/1.1 201 Created
+// GET http://localhost:3333/user/1111
+// HTTP/1.1 202 Accepted
 // content-type: application/json
-// content-length: 35
-// date: Tue, 18 Jun 2024 10:40:40 GMT
-// Request duration: 0.017513s
+// content-length: 37
+// date: Wed, 10 Jul 2024 07:10:31 GMT
+// Request duration: 0.007594s
 #+END_SRC

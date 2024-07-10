@@ -1,4 +1,3 @@
-use config::ConfigError;
 use dotenv::var;
 use serde::Deserialize;
 

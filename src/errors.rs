@@ -1,4 +1,4 @@
-use std::{env, error::Error};
+use std::env;
 
 use axum::{http::StatusCode, response::IntoResponse, Json};
 use serde_json::{json, Value};
@@ -14,6 +14,9 @@ pub enum AppError {
 
   #[error("Env Error")]
   EnvError(#[from] env::VarError),
+
+  #[error("Sqxl Error")]
+  Sqlx(#[from] sqlx::Error),
 }
 
 pub struct WebResponse {
@@ -28,6 +31,7 @@ impl IntoResponse for AppError {
       AppError::Config(e) => (StatusCode::BAD_REQUEST, Json(json!({"error" : e.to_string()}))).into_response(),
       AppError::NotFound => (StatusCode::NOT_FOUND, Json(json!({"error": "Not Found"}))).into_response(),
       AppError::EnvError(e) => (StatusCode::FORBIDDEN, Json(json!({"error": e.to_string()}))).into_response(),
+      AppError::Sqlx(e) => (StatusCode::BAD_REQUEST, Json(json!({"error": e.to_string()}))).into_response(),
     }
   }
 }
