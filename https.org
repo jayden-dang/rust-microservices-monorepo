@@ -36,6 +36,7 @@ GET :host/hello
 #+END_SRC
 
 ** User
+*** Get User By Id
 #+BEGIN_SRC restclient :var host=host :var headers=headers
 GET :host/api/v1/user/1000
 :headers
@@ -52,4 +53,83 @@ GET :host/api/v1/user/1000
 // content-length: 46
 // date: Thu, 11 Jul 2024 08:26:18 GMT
 // Request duration: 0.016230s
+#+END_SRC
+*** List User
+#+BEGIN_SRC restclient :var host=host :var headers=headers
+GET :host/api/v1/users
+:headers
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_SRC js
+[
+  {
+    "pk_user_id": 1000,
+    "username": "new Jayden"
+  },
+  {
+    "pk_user_id": 1001,
+    "username": "hello"
+  }
+]
+// GET http://localhost:3333/api/v1/users
+// HTTP/1.1 202 Accepted
+// content-type: application/json
+// content-length: 84
+// date: Thu, 11 Jul 2024 09:52:48 GMT
+// Request duration: 0.003292s
+#+END_SRC
+
+*** Create User
+#+begin_src restclient :var host=host :var headers=headers
+POST :host/api/v1/user
+:headers
+{
+  "username"  : "Jayden"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+1002
+// POST http://localhost:3333/api/v1/user
+// HTTP/1.1 202 Accepted
+// content-type: application/json
+// content-length: 4
+// date: Thu, 11 Jul 2024 09:50:50 GMT
+// Request duration: 0.021660s
+#+END_SRC
+
+*** Update User
+#+begin_src restclient :var host=host :var headers=headers
+PATCH :host/api/v1/user
+:headers
+{
+  "id" : 1000,
+  "username"  : "new Jayden"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+// PATCH http://localhost:3333/api/v1/user
+// HTTP/1.1 202 Accepted
+// content-length: 0
+// date: Thu, 11 Jul 2024 09:51:51 GMT
+// Request duration: 0.015557s
+#+END_SRC
+
+*** Delete User
+#+begin_src restclient :var host=host :var headers=headers
+DELETE :host/api/v1/user/1002
+:headers
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+// DELETE http://localhost:3333/api/v1/user/1002
+// HTTP/1.1 202 Accepted
+// content-length: 0
+// date: Thu, 11 Jul 2024 09:52:39 GMT
+// Request duration: 0.005486s
 #+END_SRC

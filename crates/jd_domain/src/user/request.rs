@@ -8,6 +8,10 @@ pub struct RequestGetUser {
 #[derive(Deserialize)]
 pub struct RequestCreateUser {
   pub username: String,
-  pub password: String,
-  pub full_name: Option<String>,
+}
+
+#[derive(Deserialize)]
+pub struct RequestUpdateUser {
+  pub id: i64,
+  pub username: String,
 }

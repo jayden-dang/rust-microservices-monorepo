@@ -8,6 +8,4 @@ pub mod response;
 pub struct User {
   pub pk_user_id: i64,
   pub username: String,
-  pub password: String,
-  pub full_name: String,
 }
