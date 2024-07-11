@@ -1,0 +1,15 @@
+[package]
+name = "jd_api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7.5"
+serde = "1.0.204"
+serde_json = "1.0.120"
+sqlx = { version = "0.7.4", features = ["postgres", "runtime-tokio-rustls"] }
+
+# Members
+jd_core = {path = "../jd_core"}
+jd_domain = {path = "../jd_domain"}
+jd_infra = {path = "../jd_infra"}

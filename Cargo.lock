@@ -37,27 +37,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c6cb57a04249c6480766f7f7cef5467412af1490f8d1e243141daddada3264f"
 
 [[package]]
-name = "api"
-version = "0.1.0"
-
-[[package]]
-name = "app"
-version = "0.1.0"
-dependencies = [
- "axum",
- "core",
- "dotenv",
- "infra",
- "serde",
- "serde_json",
- "sqlx",
- "tokio",
- "tracing",
- "tracing-subscriber",
- "uuid",
-]
-
-[[package]]
 name = "async-trait"
 version = "0.1.81"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -269,19 +248,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "core"
-version = "0.1.0"
-dependencies = [
- "axum",
- "config",
- "dotenv",
- "serde",
- "serde_json",
- "sqlx",
- "thiserror",
-]
-
-[[package]]
 name = "cpufeatures"
 version = "0.2.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -367,10 +333,6 @@ checksum = "442039f5147480ba31067cb00ada1adae6892028e40e45fc5de7b7df6dcc1b5f"
 dependencies = [
  "const-random",
 ]
-
-[[package]]
-name = "domain"
-version = "0.1.0"
 
 [[package]]
 name = "dotenv"
@@ -731,17 +693,80 @@ dependencies = [
 ]
 
 [[package]]
-name = "infra"
-version = "0.1.0"
-dependencies = [
- "sqlx",
-]
-
-[[package]]
 name = "itoa"
 version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
+
+[[package]]
+name = "jd_api"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "jd_core",
+ "jd_domain",
+ "jd_infra",
+ "serde",
+ "serde_json",
+ "sqlx",
+]
+
+[[package]]
+name = "jd_app"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "dotenv",
+ "jd_api",
+ "jd_core",
+ "jd_infra",
+ "serde",
+ "serde_json",
+ "sqlx",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
+]
+
+[[package]]
+name = "jd_core"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "config",
+ "dotenv",
+ "serde",
+ "serde_json",
+ "sqlx",
+ "thiserror",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
+name = "jd_domain"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "sqlx",
+]
+
+[[package]]
+name = "jd_infra"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "jd_core",
+ "jd_domain",
+ "sqlx",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "jd_utils"
+version = "0.1.0"
 
 [[package]]
 name = "json5"
@@ -2050,10 +2075,6 @@ name = "urlencoding"
 version = "2.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "daf8dba3b7eb870caf1ddeed7bc9d2a049f3cfdfae7cb521b087cc33ae4c49da"
-
-[[package]]
-name = "utils"
-version = "0.1.0"
 
 [[package]]
 name = "uuid"

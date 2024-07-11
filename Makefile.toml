@@ -6,7 +6,7 @@ default_to_workspace = false
 
 [tasks.dev]
 install_crate="cargo-watch"
-cwd = "./crates/app"
+cwd = "./crates/jd_app"
 command = "cargo"
 args = ["watch", "-x", "clippy", "-x", "run"]
 

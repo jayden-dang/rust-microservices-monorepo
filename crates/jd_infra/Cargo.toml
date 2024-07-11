@@ -1,0 +1,14 @@
+[package]
+name = "jd_infra"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7.5"
+sqlx = { version = "0.7.4", features = ["postgres", "runtime-tokio-rustls"] }
+tracing = "0.1.40"
+uuid = { version = "1.10.0", features = ["v4", "fast-rng"] }
+
+# Members
+jd_core = { path = "../jd_core"}
+jd_domain = { path = "../jd_domain"}

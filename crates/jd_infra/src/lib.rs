@@ -1,3 +1,6 @@
+pub mod middleware;
+pub mod user;
+
 use sqlx::{postgres::PgPoolOptions, PgPool};
 
 pub async fn initialed_db(dsn: &str, max_conns: u32) -> PgPool {

@@ -8,7 +8,7 @@
 #+BEGIN_SRC elisp
 "http://localhost:3333"
 #+END_SRC
-
+chrome://vivaldi-webui/startpage?section=Speed-dials&background-color=#2e2f37
 #+name: headers
 #+BEGIN_SRC elisp
 "Content-Type: application/json
@@ -37,20 +37,19 @@ GET :host/hello
 
 ** User
 #+BEGIN_SRC restclient :var host=host :var headers=headers
-GET :host/user/1000
+GET :host/api/v1/user/1000
 :headers
 #+END_SRC
 
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "pk_user_id": 1000,
-  "username": "user1"
+  "error": "no column found for name: password"
 }
-// GET http://localhost:3333/user/1000
+// GET http://localhost:3333/api/v1/user/1000
 // HTTP/1.1 202 Accepted
 // content-type: application/json
-// content-length: 38
-// date: Wed, 10 Jul 2024 08:55:08 GMT
-// Request duration: 0.013101s
+// content-length: 46
+// date: Thu, 11 Jul 2024 08:26:18 GMT
+// Request duration: 0.016230s
 #+END_SRC

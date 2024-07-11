@@ -1,9 +1,14 @@
 [workspace]
 members = [
-  "crates/api",
-  "crates/app",
-  "crates/core",
-  "crates/domain",
-  "crates/infra",
-  "crates/utils"
+  "crates/jd_api",
+  "crates/jd_app",
+  "crates/jd_core",
+  "crates/jd_domain",
+  "crates/jd_infra",
+  "crates/jd_utils"
 ]
+resolver = "2"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+# unused = "allow" # For experimental dev.
