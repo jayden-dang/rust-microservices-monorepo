@@ -85,20 +85,25 @@ GET :host/api/v1/users
 POST :host/api/v1/user
 :headers
 {
-  "username"  : "Jayden"
+  "pk_user_id" : 1001,
+  "username"  : "Jayden1"
 }
 #+end_src
 
 #+RESULTS:
 #+BEGIN_SRC js
-1002
+{
+  "pk_user_id": 1001,
+  "username": "Jayden1"
+}
 // POST http://localhost:3333/api/v1/user
 // HTTP/1.1 202 Accepted
 // content-type: application/json
-// content-length: 4
-// date: Thu, 11 Jul 2024 09:50:50 GMT
-// Request duration: 0.021660s
+// content-length: 40
+// date: Fri, 19 Jul 2024 09:48:54 GMT
+// Request duration: 0.017465s
 #+END_SRC
+
 
 *** Update User
 #+begin_src restclient :var host=host :var headers=headers
@@ -132,4 +137,29 @@ DELETE :host/api/v1/user/1002
 // content-length: 0
 // date: Thu, 11 Jul 2024 09:52:39 GMT
 // Request duration: 0.005486s
+#+END_SRC
+
+*** Create Course
+#+begin_src restclient :var host=host :var headers=headers
+POST :host/api/v1/course
+:headers
+{
+  "pk_course_id" : 1002,
+  "title"  : "Course 1",
+  "description"  : "Description course 1"
+}
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "pk_course_id": 1002,
+  "title": "Course 1"
+}
+// POST http://localhost:3333/api/v1/course
+// HTTP/1.1 202 Accepted
+// content-type: application/json
+// content-length: 40
+// date: Fri, 19 Jul 2024 10:25:27 GMT
+// Request duration: 0.011570s
 #+END_SRC

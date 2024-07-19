@@ -17,6 +17,9 @@ pub enum AppError {
 
   #[error("Sqxl Error")]
   Sqlx(#[from] sqlx::Error),
+
+  #[error("SeaQuery Error")]
+  SeaQuery(#[from] sea_query::error::Error),
 }
 
 pub struct WebResponse {
@@ -32,6 +35,9 @@ impl IntoResponse for AppError {
       AppError::NotFound => (StatusCode::NOT_FOUND, Json(json!({"error": "Not Found"}))).into_response(),
       AppError::EnvError(e) => (StatusCode::FORBIDDEN, Json(json!({"error": e.to_string()}))).into_response(),
       AppError::Sqlx(e) => (StatusCode::BAD_REQUEST, Json(json!({"error": e.to_string()}))).into_response(),
+      AppError::SeaQuery(e) => {
+        (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"error": e.to_string()}))).into_response()
+      },
     }
   }
 }

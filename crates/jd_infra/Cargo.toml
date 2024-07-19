@@ -12,3 +12,6 @@ uuid = { version = "1.10.0", features = ["v4", "fast-rng"] }
 # Members
 jd_core = { path = "../jd_core"}
 jd_domain = { path = "../jd_domain"}
+sea-query = "0.30.7"
+modql = { version = "0.3.10", features = ["with-sea-query"] }
+sea-query-binder = { version = "0.5.0", features = ["sqlx-postgres"] }
