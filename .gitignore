@@ -1,2 +1,3 @@
 /target
 /.env
+/crates/jd_app/logs/

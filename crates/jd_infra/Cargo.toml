@@ -15,3 +15,6 @@ jd_domain = { path = "../jd_domain"}
 sea-query = "0.30.7"
 modql = { version = "0.3.10", features = ["with-sea-query"] }
 sea-query-binder = { version = "0.5.0", features = ["sqlx-postgres"] }
+serde_json = "1.0.120"
+serde = { version = "1.0.204", features = ["derive"] }
+serde_with = "3.9.0"

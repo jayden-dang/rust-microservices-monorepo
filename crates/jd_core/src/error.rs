@@ -1,7 +1,8 @@
 use std::env;
+use std::sync::Arc;
 
-use axum::{http::StatusCode, response::IntoResponse, Json};
-use serde_json::{json, Value};
+use axum::{http::StatusCode, response::IntoResponse};
+use serde::Serialize;
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -20,24 +21,33 @@ pub enum AppError {
 
   #[error("SeaQuery Error")]
   SeaQuery(#[from] sea_query::error::Error),
-}
 
-pub struct WebResponse {
-  pub data: Value,
-  pub code: StatusCode,
-  pub status: bool,
+  #[error("Entity Not Found")]
+  EntityNotFound { entity: &'static str, id: i64 },
 }
 
 impl IntoResponse for AppError {
   fn into_response(self) -> axum::response::Response {
+    let mut response = StatusCode::INTERNAL_SERVER_ERROR.into_response();
+    response.extensions_mut().insert(Arc::new(self));
+    response
+  }
+}
+
+impl AppError {
+  pub fn status_and_error(&self) -> (StatusCode, ClientError) {
+    use self::AppError::*;
     match self {
-      AppError::Config(e) => (StatusCode::BAD_REQUEST, Json(json!({"error" : e.to_string()}))).into_response(),
-      AppError::NotFound => (StatusCode::NOT_FOUND, Json(json!({"error": "Not Found"}))).into_response(),
-      AppError::EnvError(e) => (StatusCode::FORBIDDEN, Json(json!({"error": e.to_string()}))).into_response(),
-      AppError::Sqlx(e) => (StatusCode::BAD_REQUEST, Json(json!({"error": e.to_string()}))).into_response(),
-      AppError::SeaQuery(e) => {
-        (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"error": e.to_string()}))).into_response()
-      },
+      EntityNotFound { entity, id } => (StatusCode::FORBIDDEN, ClientError::EntityNotFound { entity, id: *id }),
+      _ => (StatusCode::INTERNAL_SERVER_ERROR, ClientError::ServerError),
     }
   }
+}
+
+#[derive(Serialize, Debug)]
+#[serde(tag = "message", content = "details")]
+pub enum ClientError {
+  ServerError,
+  EntityNotFound { entity: &'static str, id: i64 },
+  NotFound,
 }

@@ -25,14 +25,17 @@ GET :host/hello
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "msg": "hello"
+  "data": null,
+  "metadata": null,
+  "req_id": "668c3e32-5008-4f1f-85b4-656fcade57a3",
+  "status": 1
 }
 // GET http://localhost:3333/hello
-// HTTP/1.1 202 Accepted
+// HTTP/1.1 404 Not Found
 // content-type: application/json
-// content-length: 15
-// date: Wed, 10 Jul 2024 08:55:00 GMT
-// Request duration: 0.033504s
+// content-length: 88
+// date: Tue, 23 Jul 2024 09:40:44 GMT
+// Request duration: 0.006600s
 #+END_SRC
 
 ** User
@@ -62,22 +65,18 @@ GET :host/api/v1/users
 
 #+RESULTS:
 #+BEGIN_SRC js
-[
-  {
-    "pk_user_id": 1000,
-    "username": "new Jayden"
-  },
-  {
-    "pk_user_id": 1001,
-    "username": "hello"
-  }
-]
+{
+  "data": [],
+  "metadata": null,
+  "req_id": "a15b50c4-1cc3-4397-af8f-7c2ceb926fe0",
+  "status": 1
+}
 // GET http://localhost:3333/api/v1/users
-// HTTP/1.1 202 Accepted
+// HTTP/1.1 200 OK
 // content-type: application/json
-// content-length: 84
-// date: Thu, 11 Jul 2024 09:52:48 GMT
-// Request duration: 0.003292s
+// content-length: 86
+// date: Tue, 23 Jul 2024 07:01:30 GMT
+// Request duration: 0.019065s
 #+END_SRC
 
 *** Create User
@@ -93,15 +92,19 @@ POST :host/api/v1/user
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "pk_user_id": 1001,
-  "username": "Jayden1"
+  "data": {
+    "details": null,
+    "message": "ServerError"
+  },
+  "req_id": "4bc80cde-622d-4d50-81f6-9722b3bdea01",
+  "status": 0
 }
 // POST http://localhost:3333/api/v1/user
-// HTTP/1.1 202 Accepted
+// HTTP/1.1 500 Internal Server Error
 // content-type: application/json
-// content-length: 40
-// date: Fri, 19 Jul 2024 09:48:54 GMT
-// Request duration: 0.017465s
+// content-length: 108
+// date: Tue, 23 Jul 2024 09:40:58 GMT
+// Request duration: 0.021207s
 #+END_SRC
 
 
@@ -132,11 +135,20 @@ DELETE :host/api/v1/user/1002
 
 #+RESULTS:
 #+BEGIN_SRC js
+{
+  "data": {
+    "details": null,
+    "message": "ServerError"
+  },
+  "req_id": "c246357e-d0ab-49f4-9a94-4e4930a3cb6f",
+  "status": 0
+}
 // DELETE http://localhost:3333/api/v1/user/1002
-// HTTP/1.1 202 Accepted
-// content-length: 0
-// date: Thu, 11 Jul 2024 09:52:39 GMT
-// Request duration: 0.005486s
+// HTTP/1.1 500 Internal Server Error
+// content-type: application/json
+// content-length: 108
+// date: Tue, 23 Jul 2024 10:16:16 GMT
+// Request duration: 0.007584s
 #+END_SRC
 
 *** Create Course
@@ -144,8 +156,8 @@ DELETE :host/api/v1/user/1002
 POST :host/api/v1/course
 :headers
 {
-  "pk_course_id" : 1002,
-  "title"  : "Course 1",
+  "pk_course_id" : 303322,
+  "title"  : "Course 4",
   "description"  : "Description course 1"
 }
 #+end_src
@@ -153,13 +165,18 @@ POST :host/api/v1/course
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "pk_course_id": 1002,
-  "title": "Course 1"
+  "data": {
+    "pk_course_id": 303322,
+    "title": "Course 4"
+  },
+  "metadata": null,
+  "req_id": "cbeb30b7-8b85-483e-ae2c-f9af449c0226",
+  "status": 1
 }
 // POST http://localhost:3333/api/v1/course
-// HTTP/1.1 202 Accepted
+// HTTP/1.1 200 OK
 // content-type: application/json
-// content-length: 40
-// date: Fri, 19 Jul 2024 10:25:27 GMT
-// Request duration: 0.011570s
+// content-length: 126
+// date: Tue, 23 Jul 2024 10:26:33 GMT
+// Request duration: 0.021005s
 #+END_SRC

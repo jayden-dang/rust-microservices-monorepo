@@ -19,3 +19,5 @@ uuid = { version = "1.10.0", features = ["v4", "fast-rng"] }
 jd_core = { path = "../jd_core" }
 jd_infra = { path = "../jd_infra" }
 jd_api = { path = "../jd_api" }
+tracing-appender = "0.2.3"
+chrono = "0.4.38"

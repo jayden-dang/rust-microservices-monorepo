@@ -1,9 +1,12 @@
 use jd_core::config::ProdConfig;
 use jd_infra::initialed_db;
 use jd_infra::middleware::{map_response, mw_auth};
+mod trace;
+use trace::tracing_init;
 
 use axum::{
-  middleware::{self}, Router,
+  middleware::{self},
+  Router,
 };
 use dotenv::dotenv;
 use tracing::info;
@@ -11,12 +14,7 @@ use tracing::info;
 #[tokio::main]
 async fn main() {
   dotenv().ok();
-  let subscriber = tracing_subscriber::fmt::Subscriber::builder()
-    .without_time()
-    .with_target(false)
-    .with_max_level(tracing::Level::TRACE)
-    .finish();
-  tracing::subscriber::set_global_default(subscriber).expect("Cannot setting subscriber global");
+  let _gaurd = tracing_init();
 
   let cfg = ProdConfig::from_env().expect("Cann't get env");
   let pool = initialed_db(&cfg.postgres.dsn, cfg.postgres.max_conns).await;

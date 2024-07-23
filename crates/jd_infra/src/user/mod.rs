@@ -1,17 +1,13 @@
-use axum::{
-  extract::{Path, State},
-  Json,
-};
+use axum::Json;
 use jd_core::{error::AppError, AppResult};
 use jd_domain::user::{
-  request::{RequestCreateUser, RequestGetUser, RequestUpdateUser},
+  request::{RequestGetUser, RequestUpdateUser},
   User,
 };
 use modql::{field::HasFields, SIden};
-use sea_query::{Alias, Asterisk, Expr, IntoIden, PostgresQueryBuilder, Query, TableRef};
+use sea_query::{Alias, IntoIden, PostgresQueryBuilder, Query, TableRef};
 use sea_query_binder::SqlxBinder;
 use sqlx::{postgres::PgRow, FromRow, PgPool};
-use tracing::info;
 
 pub trait DMC {
   const SCHEMA: &'static str;
