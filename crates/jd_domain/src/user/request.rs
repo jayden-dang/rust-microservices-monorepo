@@ -14,6 +14,5 @@ pub struct RequestCreateUser {
 
 #[derive(Deserialize, Fields)]
 pub struct RequestUpdateUser {
-  pub id: i64,
   pub username: String,
 }

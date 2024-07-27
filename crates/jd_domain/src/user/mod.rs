@@ -1,14 +1,22 @@
-use modql::field::Fields;
+use modql::{
+  field::Fields,
+  filter::{FilterNodes, OpValsInt64, OpValsString},
+};
 use serde::{Deserialize, Serialize};
 use sqlx::prelude::FromRow;
 
 pub mod request;
 pub mod response;
 
-#[derive(Serialize, FromRow, Fields)]
+#[derive(Serialize, FromRow, Fields, Debug)]
 pub struct User {
   pub pk_user_id: i64,
   pub username: String,
+}
+
+#[derive(Serialize, FromRow, Fields)]
+pub struct ResponseUpdateUser {
+  pub pk_user_id: i64,
 }
 
 #[derive(Serialize, FromRow, Fields)]
@@ -29,4 +37,15 @@ pub struct RequestCreateCourse {
 pub struct ResponseCreateCourse {
   pub pk_course_id: i64,
   pub title: String,
+}
+
+#[derive(Deserialize, FromRow, Fields)]
+pub struct RequestGetCourseById {
+  pub pk_course_id: i64,
+}
+
+#[derive(FilterNodes, Deserialize, Default, Debug)]
+pub struct UserFilter {
+  pub pk_user_id: Option<i64>,
+  pub username: Option<OpValsString>,
 }

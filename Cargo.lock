@@ -866,9 +866,12 @@ dependencies = [
  "jd_core",
  "jd_domain",
  "jd_infra",
+ "modql",
+ "sea-query",
  "serde",
  "serde_json",
  "sqlx",
+ "tracing",
 ]
 
 [[package]]
@@ -898,6 +901,7 @@ dependencies = [
  "axum",
  "config",
  "dotenv",
+ "modql",
  "sea-query",
  "serde",
  "serde_json",
@@ -1075,9 +1079,9 @@ dependencies = [
 
 [[package]]
 name = "modql"
-version = "0.3.10"
+version = "0.4.0-rc.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e7fab11a065942c4237a3e679e644b53e999a742f3f5434cca2e27e1da3fcf06"
+checksum = "e71bc5cf84a106d51790ef9d0d01fe0a35c0db60094f8520216c1589c92462d5"
 dependencies = [
  "modql-macros",
  "sea-query",
@@ -1087,9 +1091,9 @@ dependencies = [
 
 [[package]]
 name = "modql-macros"
-version = "0.3.10"
+version = "0.4.0-rc.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3cb578354dcb981ec46db049434384846271c914d44fb24f054fac3626ff3fbd"
+checksum = "49619840a6e5a4664b15f476991a4fa71ff9a837b87a6009f11d6943fc659ef0"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1579,22 +1583,26 @@ dependencies = [
 
 [[package]]
 name = "sea-query"
-version = "0.30.7"
+version = "0.31.0-rc.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4166a1e072292d46dc91f31617c2a1cdaf55a8be4b5c9f4bf2ba248e3ac4999b"
+checksum = "2ad45af4aedefa04c296d623ffb7e409a24d4bfc0b5599b43f5726d88cc7ff2a"
 dependencies = [
  "inherent",
  "sea-query-derive",
+ "time",
+ "uuid",
 ]
 
 [[package]]
 name = "sea-query-binder"
-version = "0.5.0"
+version = "0.6.0-rc.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "36bbb68df92e820e4d5aeb17b4acd5cc8b5d18b2c36a4dd6f4626aabfa7ab1b9"
+checksum = "9891be9fd1ba58a710274f0387ca1ed2bd0c883a98458cdf706fc35009dae171"
 dependencies = [
  "sea-query",
  "sqlx",
+ "time",
+ "uuid",
 ]
 
 [[package]]
@@ -1854,10 +1862,12 @@ dependencies = [
  "smallvec",
  "sqlformat",
  "thiserror",
+ "time",
  "tokio",
  "tokio-stream",
  "tracing",
  "url",
+ "uuid",
  "webpki-roots",
 ]
 
@@ -1938,7 +1948,9 @@ dependencies = [
  "sqlx-core",
  "stringprep",
  "thiserror",
+ "time",
  "tracing",
+ "uuid",
  "whoami",
 ]
 
@@ -1976,7 +1988,9 @@ dependencies = [
  "sqlx-core",
  "stringprep",
  "thiserror",
+ "time",
  "tracing",
+ "uuid",
  "whoami",
 ]
 
@@ -1998,9 +2012,11 @@ dependencies = [
  "percent-encoding",
  "serde",
  "sqlx-core",
+ "time",
  "tracing",
  "url",
  "urlencoding",
+ "uuid",
 ]
 
 [[package]]

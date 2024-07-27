@@ -40,12 +40,33 @@ pub async fn mw_map_response(uri: Uri, req_method: Method, res: Response) -> Res
       let body = to_bytes(res.into_body(), usize::MAX).await.unwrap_or_default();
       let body_string = String::from_utf8(body.to_vec()).unwrap_or_default();
       let data: Value = serde_json::from_str(&body_string).unwrap_or(Value::Null);
-      let json_response = json!({
-        "req_id" : uuid.to_string(),
-        "status" : 1,
-        "data" : data,
-        "metadata" : null // pagination
-      });
+      let json_response: Value = match data.clone() {
+        Value::Object(map) => {
+          if map.contains_key("data") && map.contains_key("metadata") {
+            json!({
+              "req_id" : uuid.to_string(),
+              "status" : 1,
+              "data" : map.get("data").cloned().unwrap_or(Value::Null),
+              "metadata" : map.get("metadata").cloned().unwrap_or(Value::Null) // pagination
+            })
+          } else {
+            json!({
+              "req_id" : uuid.to_string(),
+              "status" : 1,
+              "data" : data,
+              "metadata" : null
+            })
+          }
+        },
+        _ => {
+          json!({
+            "req_id" : uuid.to_string(),
+            "status" : 1,
+            "data" : data,
+            "metadata" : null
+          })
+        },
+      };
       let _ = log_request(uuid, uri, req_method, json_response.clone(), 1).await;
       (status, Json(json_response)).into_response()
     },
@@ -62,9 +83,9 @@ async fn log_request(uuid: Uuid, uri: Uri, req_method: Method, error_data: Value
   };
 
   if status == 0 {
-    error!("Request Log: {}", json!(log));
+    error!("\n{}", json!(log));
   } else {
-    debug!("Request Log: {}", json!(log));
+    debug!("\n{}", json!(log));
   }
   Ok(())
 }

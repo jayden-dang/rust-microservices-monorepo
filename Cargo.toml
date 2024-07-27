@@ -12,3 +12,18 @@ resolver = "2"
 [workspace.lints.rust]
 unsafe_code = "forbid"
 # unused = "allow" # For experimental dev.
+
+[workspace.dependencies]
+# Serde Json
+serde_with = { version = "3.9.0", features = ["time_0_3"]}
+
+# Data
+modql = { version = "=0.4.0-rc.6", features = ["with-sea-query"]}
+time = {version = "0.3.35", features = ["formatting", "parsing", "serde"]}
+
+# Query
+sea-query = "0.31.0-rc"
+sea-query-binder = { version = "0.6.0-rc", features = ["sqlx-postgres", "with-uuid", "with-time"] }
+
+# Derive
+derive_more = {version = "1.0.0-beta", features = ["from", "display"] }

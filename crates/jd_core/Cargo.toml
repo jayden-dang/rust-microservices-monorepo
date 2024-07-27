@@ -7,10 +7,12 @@ edition = "2021"
 axum = { version = "0.7.5", features = ["tracing"] }
 config = "0.14.0"
 dotenv = "0.15.0"
-sea-query = "0.30.7"
 serde = { version = "1.0.204", features = ["derive"] }
 serde_json = "1.0.120"
 sqlx = { version = "0.7.4", features = ["postgres"] }
 thiserror = "1.0.61"
 tracing = "0.1.40"
 tracing-subscriber = "0.3.18"
+
+modql.workspace = true
+sea-query.workspace = true

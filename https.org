@@ -8,7 +8,7 @@
 #+BEGIN_SRC elisp
 "http://localhost:3333"
 #+END_SRC
-chrome://vivaldi-webui/startpage?section=Speed-dials&background-color=#2e2f37
+
 #+name: headers
 #+BEGIN_SRC elisp
 "Content-Type: application/json
@@ -16,67 +16,85 @@ User-Agent: Emacs30"
 #+END_SRC
 
 * API
-** Index
-#+BEGIN_SRC restclient :var host=host :var headers=headers
-GET :host/hello
-:headers
-#+END_SRC
-
-#+RESULTS:
-#+BEGIN_SRC js
-{
-  "data": null,
-  "metadata": null,
-  "req_id": "668c3e32-5008-4f1f-85b4-656fcade57a3",
-  "status": 1
-}
-// GET http://localhost:3333/hello
-// HTTP/1.1 404 Not Found
-// content-type: application/json
-// content-length: 88
-// date: Tue, 23 Jul 2024 09:40:44 GMT
-// Request duration: 0.006600s
-#+END_SRC
-
 ** User
 *** Get User By Id
 #+BEGIN_SRC restclient :var host=host :var headers=headers
-GET :host/api/v1/user/1000
-:headers
+GET :host/api/v1/user/200
 #+END_SRC
 
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "error": "no column found for name: password"
+  "data": {
+    "details": {
+      "entity": "tbl_users",
+      "id": 200
+    },
+    "message": "EntityNotFound"
+  },
+  "req_id": "f8c01ebd-bb72-42f2-8658-3a8dd18dbb73",
+  "status": 0
 }
-// GET http://localhost:3333/api/v1/user/1000
-// HTTP/1.1 202 Accepted
+// GET http://localhost:3333/api/v1/user/200
+// HTTP/1.1 403 Forbidden
 // content-type: application/json
-// content-length: 46
-// date: Thu, 11 Jul 2024 08:26:18 GMT
-// Request duration: 0.016230s
+// content-length: 138
+// date: Sat, 27 Jul 2024 11:05:40 GMT
+// Request duration: 0.010503s
 #+END_SRC
+
+*** Get User By Sth
+#+BEGIN_SRC restclient :var host=host :var headers=headers
+GET :host/api/v1/user?username=Jayden1
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "data": {
+    "details": {
+      "entity": "tbl_users",
+      "id": 0
+    },
+    "message": "EntityNotFound"
+  },
+  "req_id": "11d32308-df6a-4aa6-83d6-8a82d2d6995c",
+  "status": 0
+}
+// GET http://localhost:3333/api/v1/usert?username=Jayden1
+// HTTP/1.1 403 Forbidden
+// content-type: application/json
+// content-length: 136
+// date: Sat, 27 Jul 2024 09:55:37 GMT
+// Request duration: 0.008114s
+#+END_SRC
+
 *** List User
 #+BEGIN_SRC restclient :var host=host :var headers=headers
 GET :host/api/v1/users
 :headers
 #+END_SRC
 
+*** All User
+#+BEGIN_SRC restclient :var host=host :var headers=headers
+GET :host/api/v1/count_user
+:headers
+#+END_SRC
+
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "data": [],
+  "data": 1002,
   "metadata": null,
-  "req_id": "a15b50c4-1cc3-4397-af8f-7c2ceb926fe0",
+  "req_id": "9f2585ac-dc40-4ec4-92a2-b1195a596b03",
   "status": 1
 }
-// GET http://localhost:3333/api/v1/users
+// GET http://localhost:3333/api/v1/count_user
 // HTTP/1.1 200 OK
 // content-type: application/json
-// content-length: 86
-// date: Tue, 23 Jul 2024 07:01:30 GMT
-// Request duration: 0.019065s
+// content-length: 88
+// date: Sat, 27 Jul 2024 10:09:53 GMT
+// Request duration: 0.019859s
 #+END_SRC
 
 *** Create User
@@ -84,79 +102,104 @@ GET :host/api/v1/users
 POST :host/api/v1/user
 :headers
 {
-  "pk_user_id" : 1001,
-  "username"  : "Jayden1"
+  "pk_user_id" : 1002,
+  "username"  : "Jayden"
 }
 #+end_src
 
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "data": {
-    "details": null,
-    "message": "ServerError"
-  },
-  "req_id": "4bc80cde-622d-4d50-81f6-9722b3bdea01",
-  "status": 0
+  "data": null,
+  "metadata": null,
+  "req_id": "9cee245a-d4ba-4ede-af44-27fc71c3749f",
+  "status": 1
 }
 // POST http://localhost:3333/api/v1/user
-// HTTP/1.1 500 Internal Server Error
+// HTTP/1.1 200 OK
 // content-type: application/json
-// content-length: 108
-// date: Tue, 23 Jul 2024 09:40:58 GMT
-// Request duration: 0.021207s
+// content-length: 88
+// date: Sat, 27 Jul 2024 09:22:49 GMT
+// Request duration: 0.009536s
 #+END_SRC
-
 
 *** Update User
 #+begin_src restclient :var host=host :var headers=headers
-PATCH :host/api/v1/user
+PATCH :host/api/v1/user/1000
 :headers
 {
-  "id" : 1000,
-  "username"  : "new Jayden"
+  "username"  : "New Jayden"
 }
 #+end_src
 
 #+RESULTS:
 #+BEGIN_SRC js
-// PATCH http://localhost:3333/api/v1/user
-// HTTP/1.1 202 Accepted
-// content-length: 0
-// date: Thu, 11 Jul 2024 09:51:51 GMT
-// Request duration: 0.015557s
+{
+  "data": null,
+  "metadata": null,
+  "req_id": "afdb697a-8f1d-4514-a153-b4eb69d74451",
+  "status": 1
+}
+// PATCH http://localhost:3333/api/v1/user/1000
+// HTTP/1.1 200 OK
+// content-type: application/json
+// content-length: 88
+// date: Sat, 27 Jul 2024 10:51:37 GMT
+// Request duration: 0.016026s
 #+END_SRC
 
 *** Delete User
 #+begin_src restclient :var host=host :var headers=headers
-DELETE :host/api/v1/user/1002
+DELETE :host/api/v1/user/1001
 :headers
 #+end_src
 
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "data": {
-    "details": null,
-    "message": "ServerError"
-  },
-  "req_id": "c246357e-d0ab-49f4-9a94-4e4930a3cb6f",
-  "status": 0
+  "data": null,
+  "metadata": null,
+  "req_id": "d733fb25-6362-43b8-a21c-adc055f44787",
+  "status": 1
 }
-// DELETE http://localhost:3333/api/v1/user/1002
-// HTTP/1.1 500 Internal Server Error
+// DELETE http://localhost:3333/api/v1/user/1001
+// HTTP/1.1 200 OK
 // content-type: application/json
-// content-length: 108
-// date: Tue, 23 Jul 2024 10:16:16 GMT
-// Request duration: 0.007584s
+// content-length: 88
+// date: Sat, 27 Jul 2024 10:57:54 GMT
+// Request duration: 0.012972s
 #+END_SRC
 
+*** Delete Many Users
+#+begin_src restclient :var host=host :var headers=headers
+DELETE :host/api/v1/users
+:headers
+[100, 200, 300]
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "data": null,
+  "metadata": null,
+  "req_id": "5406f794-9744-4f25-a9ee-0ae1eafe2191",
+  "status": 1
+}
+// DELETE http://localhost:3333/api/v1/users
+// HTTP/1.1 200 OK
+// content-type: application/json
+// content-length: 88
+// date: Sat, 27 Jul 2024 11:05:16 GMT
+// Request duration: 0.014252s
+#+END_SRC
+
+** Course
 *** Create Course
 #+begin_src restclient :var host=host :var headers=headers
 POST :host/api/v1/course
 :headers
 {
-  "pk_course_id" : 303322,
+  "pk_course_id" : 303325,
   "title"  : "Course 4",
   "description"  : "Description course 1"
 }
@@ -166,17 +209,42 @@ POST :host/api/v1/course
 #+BEGIN_SRC js
 {
   "data": {
-    "pk_course_id": 303322,
+    "pk_course_id": 303325,
     "title": "Course 4"
   },
   "metadata": null,
-  "req_id": "cbeb30b7-8b85-483e-ae2c-f9af449c0226",
+  "req_id": "73f7e4b8-0ffd-4e4a-8e29-5685335bd921",
   "status": 1
 }
 // POST http://localhost:3333/api/v1/course
 // HTTP/1.1 200 OK
 // content-type: application/json
 // content-length: 126
-// date: Tue, 23 Jul 2024 10:26:33 GMT
-// Request duration: 0.021005s
+// date: Tue, 23 Jul 2024 14:19:28 GMT
+// Request duration: 0.010210s
+#+END_SRC
+
+*** Get Course
+#+begin_src restclient :var host=host :var headers=headers
+GET :host/api/v1/course/2000
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "data": {
+    "description": "Description course 1",
+    "pk_course_id": 2000,
+    "title": "Course 2"
+  },
+  "metadata": null,
+  "req_id": "9e5ac5c5-5266-4fce-97f7-817a43b18fe0",
+  "status": 1
+}
+// GET http://localhost:3333/api/v1/course/2000
+// HTTP/1.1 200 OK
+// content-type: application/json
+// content-length: 161
+// date: Wed, 24 Jul 2024 10:11:38 GMT
+// Request duration: 0.006004s
 #+END_SRC

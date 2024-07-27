@@ -13,3 +13,7 @@ sqlx = { version = "0.7.4", features = ["postgres", "runtime-tokio-rustls"] }
 jd_core = {path = "../jd_core"}
 jd_domain = {path = "../jd_domain"}
 jd_infra = {path = "../jd_infra"}
+
+modql.workspace = true
+sea-query.workspace = true
+tracing = "0.1.40"
