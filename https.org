@@ -12,67 +12,196 @@
 #+name: headers
 #+BEGIN_SRC elisp
 "Content-Type: application/json
+Accept-Encoding: gzip
 User-Agent: Emacs30"
 #+END_SRC
+
+#+RESULTS: headers
+: Content-Type: application/json
+: Accept-Encoding: gzip
+: User-Agent: Emacs30
 
 * API
 ** User
 *** Get User By Id
 #+BEGIN_SRC restclient :var host=host :var headers=headers
-GET :host/api/v1/user/200
+GET :host/api/v1/user/205
+:headers
 #+END_SRC
 
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "data": {
-    "details": {
-      "entity": "tbl_users",
-      "id": 200
-    },
-    "message": "EntityNotFound"
-  },
-  "req_id": "f8c01ebd-bb72-42f2-8658-3a8dd18dbb73",
-  "status": 0
+  "data": null,
+  "metadata": null,
+  "req_id": "8695164b-88e8-4613-a740-1a80a1f8f349",
+  "status": 1
 }
-// GET http://localhost:3333/api/v1/user/200
-// HTTP/1.1 403 Forbidden
+// GET http://localhost:3333/api/v1/user/205
+// HTTP/1.1 200 OK
 // content-type: application/json
-// content-length: 138
-// date: Sat, 27 Jul 2024 11:05:40 GMT
-// Request duration: 0.010503s
+// content-length: 88
+// vary: origin, access-control-request-method, access-control-request-headers
+// date: Sun, 28 Jul 2024 15:24:11 GMT
+// Request duration: 0.014148s
 #+END_SRC
+
+#+BEGIN_SRC js
+{
+  "data": {
+    "pk_user_id": 201,
+    "username": "Rowena McKerley"
+  },
+  "metadata": null,
+  "req_id": "4da8888e-b1c4-4b09-a523-6f122473dea3",
+  "status": 1
+}
+// GET http://localhost:3333/api/v1/user/201
+// HTTP/1.1 200 OK
+// content-type: application/json
+// vary: accept-encoding
+// vary: origin, access-control-request-method, access-control-request-headers
+// transfer-encoding: chunked
+// date: Sun, 28 Jul 2024 14:41:47 GMT
+// Request duration: 0.012425s
+#+END_SRC
+
 
 *** Get User By Sth
 #+BEGIN_SRC restclient :var host=host :var headers=headers
-GET :host/api/v1/user?username=Jayden1
+GET :host/api/v1/user?username=Jayden
+:headers
 #+END_SRC
 
 #+RESULTS:
 #+BEGIN_SRC js
 {
   "data": {
-    "details": {
-      "entity": "tbl_users",
-      "id": 0
-    },
-    "message": "EntityNotFound"
+    "pk_user_id": 1002,
+    "username": "Jayden"
   },
-  "req_id": "11d32308-df6a-4aa6-83d6-8a82d2d6995c",
-  "status": 0
+  "metadata": null,
+  "req_id": "45422640-6f88-4cdd-bc19-965e86cccaea",
+  "status": 1
 }
-// GET http://localhost:3333/api/v1/usert?username=Jayden1
-// HTTP/1.1 403 Forbidden
+// GET http://localhost:3333/api/v1/user?username=Jayden
+// HTTP/1.1 200 OK
 // content-type: application/json
-// content-length: 136
-// date: Sat, 27 Jul 2024 09:55:37 GMT
-// Request duration: 0.008114s
+// vary: origin, access-control-request-method, access-control-request-headers
+// vary: accept-encoding
+// transfer-encoding: chunked
+// date: Sun, 28 Jul 2024 15:53:44 GMT
+// Request duration: 0.016146s
 #+END_SRC
 
 *** List User
 #+BEGIN_SRC restclient :var host=host :var headers=headers
 GET :host/api/v1/users
 :headers
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "data": [
+    {
+      "pk_user_id": 1,
+      "username": "Callie Ghelardoni"
+    },
+    {
+      "pk_user_id": 2,
+      "username": "Justis Aitkenhead"
+    },
+    {
+      "pk_user_id": 3,
+      "username": "Giffy Duferie"
+    },
+    {
+      "pk_user_id": 4,
+      "username": "Scotty Center"
+    },
+    {
+      "pk_user_id": 5,
+      "username": "Karlie Borman"
+    },
+    {
+      "pk_user_id": 6,
+      "username": "Alvira Voysey"
+    },
+    {
+      "pk_user_id": 7,
+      "username": "Kordula Boow"
+    },
+    {
+      "pk_user_id": 8,
+      "username": "Mirilla Ollarenshaw"
+    },
+    {
+      "pk_user_id": 9,
+      "username": "Josefa Patmore"
+    },
+    {
+      "pk_user_id": 10,
+      "username": "Delbert Galero"
+    },
+    {
+      "pk_user_id": 11,
+      "username": "Thaddeus Warlton"
+    },
+    {
+      "pk_user_id": 12,
+      "username": "Johnna Luxton"
+    },
+    {
+      "pk_user_id": 13,
+      "username": "Averil Rushmer"
+    },
+    {
+      "pk_user_id": 14,
+      "username": "Cassi Edsell"
+    },
+    {
+      "pk_user_id": 15,
+      "username": "Zacherie Cranshaw"
+    },
+    {
+      "pk_user_id": 16,
+      "username": "Lewiss Ahlin"
+    },
+    {
+      "pk_user_id": 17,
+      "username": "Gorden Baddoe"
+    },
+    {
+      "pk_user_id": 18,
+      "username": "Lonni Colombier"
+    },
+    {
+      "pk_user_id": 19,
+      "username": "Arni Hedderly"
+    },
+    {
+      "pk_user_id": 20,
+      "username": "Bette-ann Klemmt"
+    }
+  ],
+  "metadata": {
+    "current_page": 1,
+    "per_page": 20,
+    "total_items": 20,
+    "total_pages": 1
+  },
+  "req_id": "5334f18b-53bf-4a7b-a523-a937d24e9702",
+  "status": 1
+}
+// GET http://localhost:3333/api/v1/users
+// HTTP/1.1 200 OK
+// content-type: application/json
+// vary: origin, access-control-request-method, access-control-request-headers
+// vary: accept-encoding
+// transfer-encoding: chunked
+// date: Sun, 28 Jul 2024 15:52:55 GMT
+// Request duration: 0.025342s
 #+END_SRC
 
 *** All User
@@ -107,20 +236,22 @@ POST :host/api/v1/user
 }
 #+end_src
 
-#+RESULTS:
 #+BEGIN_SRC js
 {
-  "data": null,
+  "data": {
+    "pk_user_id": 1002,
+    "username": "Jayden"
+  },
   "metadata": null,
-  "req_id": "9cee245a-d4ba-4ede-af44-27fc71c3749f",
+  "req_id": "79c88bcc-ab03-4999-9b85-7c2a9a4407d6",
   "status": 1
 }
 // POST http://localhost:3333/api/v1/user
 // HTTP/1.1 200 OK
 // content-type: application/json
-// content-length: 88
-// date: Sat, 27 Jul 2024 09:22:49 GMT
-// Request duration: 0.009536s
+// content-length: 123
+// date: Sun, 28 Jul 2024 14:32:28 GMT
+// Request duration: 0.063117s
 #+END_SRC
 
 *** Update User
@@ -128,24 +259,26 @@ POST :host/api/v1/user
 PATCH :host/api/v1/user/1000
 :headers
 {
-  "username"  : "New Jayden"
+  "username"  : "New Jayden 1"
 }
 #+end_src
 
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "data": null,
+  "data": {
+    "pk_user_id": 1000
+  },
   "metadata": null,
-  "req_id": "afdb697a-8f1d-4514-a153-b4eb69d74451",
+  "req_id": "2a18514c-b394-46bf-8673-1b11ddfc99ef",
   "status": 1
 }
 // PATCH http://localhost:3333/api/v1/user/1000
 // HTTP/1.1 200 OK
 // content-type: application/json
-// content-length: 88
-// date: Sat, 27 Jul 2024 10:51:37 GMT
-// Request duration: 0.016026s
+// content-length: 103
+// date: Sat, 27 Jul 2024 15:37:09 GMT
+// Request duration: 0.025625s
 #+END_SRC
 
 *** Delete User
@@ -199,8 +332,8 @@ DELETE :host/api/v1/users
 POST :host/api/v1/course
 :headers
 {
-  "pk_course_id" : 303325,
-  "title"  : "Course 4",
+  "pk_course_id" : 3333,
+  "title"  : "Course 5",
   "description"  : "Description course 1"
 }
 #+end_src
@@ -208,20 +341,17 @@ POST :host/api/v1/course
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "data": {
-    "pk_course_id": 303325,
-    "title": "Course 4"
-  },
+  "data": null,
   "metadata": null,
-  "req_id": "73f7e4b8-0ffd-4e4a-8e29-5685335bd921",
+  "req_id": "c921b272-65ba-43b9-beab-cb05c18ef146",
   "status": 1
 }
 // POST http://localhost:3333/api/v1/course
-// HTTP/1.1 200 OK
+// HTTP/1.1 404 Not Found
 // content-type: application/json
-// content-length: 126
-// date: Tue, 23 Jul 2024 14:19:28 GMT
-// Request duration: 0.010210s
+// content-length: 88
+// date: Sun, 28 Jul 2024 14:32:10 GMT
+// Request duration: 0.002048s
 #+END_SRC
 
 *** Get Course

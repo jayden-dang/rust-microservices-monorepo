@@ -1,5 +1,7 @@
 # Rust edition 2021
+version = "Two"
 use_small_heuristics = "Max"
+indent_style = "Block"
 reorder_imports = true
 edition = "2021"
 
@@ -9,31 +11,40 @@ tab_spaces = 2
 hard_tabs = false
 
 # # Make one line functions in a single line
-# fn_single_line = true
+fn_single_line = true
+fn_args_layout = "Vertical"
 
 # # Format strings
-# format_strings = true
+format_strings = true
 
 # # Increase the max line width
-max_width = 120
-# comment_width = 100
+max_width = 100
+comment_width = 100
 
 # # Merge nested imports
-# merge_imports = true
+merge_imports = true
+imports_layout = "Mixed"
 
 # # Enum and Struct alignement
-# enum_discrim_align_threshold = 40
-# struct_field_align_threshold = 40
+enum_discrim_align_threshold = 40
+struct_field_align_threshold = 40
 
 # # Reorder impl items: type > const > macros > methods.
-# reorder_impl_items = true
+reorder_impl_items = true
 
 # # Comments and documentation formating
-# format_code_in_doc_comments = true
+format_code_in_doc_comments = true
 match_block_trailing_comma = true
-# normalize_doc_attributes = true
-# error_on_line_overflow = true
-# normalize_comments = true
-# report_fixme = "Always"
-# wrap_comments = true
-# todo = "Always"
+normalize_doc_attributes = true
+error_on_line_overflow = true
+normalize_comments = true
+report_fixme = "Always"
+wrap_comments = true
+todo = "Always"
+
+# Custom
+binop_separator = "Front"
+control_brace_style = "ClosingNextLine"
+
+# Group
+imports_granularity = "Crate"

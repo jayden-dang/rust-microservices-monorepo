@@ -1,15 +1,15 @@
+pub mod macros_utils;
+
 use jd_core::{error::AppError, AppResult};
-use jd_domain::user::{request::RequestUpdateUser, User};
 use modql::{
-  field::{HasFields, HasSeaFields},
+  field::HasSeaFields,
   filter::{FilterGroups, ListOptions},
   SIden,
 };
-use sea_query::{Alias, Asterisk, Condition, Expr, Iden, IntoIden, PostgresQueryBuilder, Query, TableRef};
+use sea_query::{Condition, Expr, Iden, IntoIden, PostgresQueryBuilder, Query, TableRef};
 use sea_query_binder::SqlxBinder;
 use serde::Serialize;
 use sqlx::{postgres::PgRow, FromRow, PgPool};
-use tracing::{debug, error, info};
 
 #[derive(Iden)]
 pub enum CommonId {
@@ -38,7 +38,10 @@ pub trait DMC {
   }
 }
 // DMC -> Database Model Control
-pub async fn create<MC, I, O>(db: PgPool, input: I) -> AppResult<O>
+pub async fn create<MC, I, O>(
+  db: PgPool,
+  input: I,
+) -> AppResult<O>
 where
   MC: DMC,
   I: HasSeaFields,
@@ -64,7 +67,10 @@ where
   Ok(entity)
 }
 
-pub async fn create_many<MC, I, O>(db: PgPool, input: Vec<I>) -> AppResult<Vec<O>>
+pub async fn create_many<MC, I, O>(
+  db: PgPool,
+  input: Vec<I>,
+) -> AppResult<Vec<O>>
 where
   MC: DMC,
   I: HasSeaFields,
@@ -97,7 +103,10 @@ where
   Ok(entities)
 }
 
-pub async fn get_by_id<MC, O>(db: &PgPool, id: i64) -> AppResult<O>
+pub async fn get_by_id<MC, O>(
+  db: &PgPool,
+  id: i64,
+) -> AppResult<O>
 where
   MC: DMC,
   O: HasSeaFields + for<'a> FromRow<'a, PgRow> + Send + Unpin,
@@ -114,7 +123,11 @@ where
   Ok(entity)
 }
 
-pub async fn first<MC, F, O>(db: &PgPool, filter: Option<F>, list_options: Option<ListOptions>) -> AppResult<Option<O>>
+pub async fn first<MC, F, O>(
+  db: &PgPool,
+  filter: Option<F>,
+  list_options: Option<ListOptions>,
+) -> AppResult<Option<O>>
 where
   MC: DMC,
   F: Into<FilterGroups>,
@@ -142,7 +155,10 @@ where
   list::<MC, F, O>(db, filter, Some(list_options)).await.map(|(item, _)| item.into_iter().next())
 }
 
-pub async fn get_by_sth<MC, F, O>(db: &PgPool, filter: Option<F>) -> AppResult<O>
+pub async fn get_by_sth<MC, F, O>(
+  db: &PgPool,
+  filter: Option<F>,
+) -> AppResult<O>
 where
   MC: DMC,
   F: Into<FilterGroups>,
@@ -206,12 +222,16 @@ where
   Ok((entities, metadata))
 }
 
-pub async fn count<MC, F>(db: &PgPool, filter: Option<F>) -> AppResult<i64>
+pub async fn count<MC, F>(
+  db: &PgPool,
+  filter: Option<F>,
+) -> AppResult<i64>
 where
   MC: DMC,
   F: Into<FilterGroups>,
 {
-  let mut query = Query::select().from(MC::table_ref()).expr(Expr::col(sea_query::Asterisk).count()).to_owned();
+  let mut query =
+    Query::select().from(MC::table_ref()).expr(Expr::col(sea_query::Asterisk).count()).to_owned();
 
   // condition from filter
   if let Some(filter) = filter {
@@ -222,13 +242,17 @@ where
 
   let (sql, values) = query.build_sqlx(PostgresQueryBuilder);
 
-  let count: i64 = sqlx::query_scalar_with(&sql, values).fetch_one(db).await.map_err(|_| AppError::CountFail)?;
+  let count: i64 =
+    sqlx::query_scalar_with(&sql, values).fetch_one(db).await.map_err(|_| AppError::CountFail)?;
 
   Ok(count)
 }
 
-// TODO: return object
-pub async fn update<MC, I>(db: &PgPool, id: i64, input: I) -> AppResult<()>
+pub async fn update<MC, I>(
+  db: &PgPool,
+  id: i64,
+  input: I,
+) -> AppResult<()>
 where
   MC: DMC,
   I: HasSeaFields,
@@ -249,8 +273,10 @@ where
   }
 }
 
-// TODO: return object
-pub async fn delete<MC>(db: &PgPool, id: i64) -> AppResult<()>
+pub async fn delete<MC>(
+  db: &PgPool,
+  id: i64,
+) -> AppResult<()>
 where
   MC: DMC,
 {
@@ -267,7 +293,10 @@ where
   }
 }
 
-pub async fn delete_many<MC: DMC>(db: &PgPool, ids: Vec<i64>) -> AppResult<()> {
+pub async fn delete_many<MC: DMC>(
+  db: &PgPool,
+  ids: Vec<i64>,
+) -> AppResult<()> {
   if ids.is_empty() {
     return Ok(());
   }
@@ -285,7 +314,9 @@ pub async fn delete_many<MC: DMC>(db: &PgPool, ids: Vec<i64>) -> AppResult<()> {
   }
 }
 
-pub fn compute_list_options<MC: DMC>(list_options: Option<ListOptions>) -> AppResult<(ListOptions, u64)> {
+pub fn compute_list_options<MC: DMC>(
+  list_options: Option<ListOptions>
+) -> AppResult<(ListOptions, u64)> {
   let mut list_options = list_options.unwrap_or_default();
 
   // Set default limit if not provided

@@ -1,5 +1,5 @@
+pub mod base;
 pub mod middleware;
-pub mod user;
 
 use sqlx::{postgres::PgPoolOptions, PgPool};
 

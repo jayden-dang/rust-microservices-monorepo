@@ -20,6 +20,11 @@ pub struct ResponseUpdateUser {
 }
 
 #[derive(Serialize, FromRow, Fields)]
+pub struct ResUpdateUser {
+  pub pk_user_id: i64,
+}
+
+#[derive(Serialize, FromRow, Fields)]
 pub struct Course {
   pub pk_course_id: i64,
   pub title: String,
@@ -29,6 +34,12 @@ pub struct Course {
 #[derive(Deserialize, FromRow, Fields)]
 pub struct RequestCreateCourse {
   pub pk_course_id: i64,
+  pub title: String,
+  pub description: String,
+}
+
+#[derive(Deserialize, FromRow, Fields)]
+pub struct RequestUpdateCourse {
   pub title: String,
   pub description: String,
 }
@@ -48,4 +59,10 @@ pub struct RequestGetCourseById {
 pub struct UserFilter {
   pub pk_user_id: Option<i64>,
   pub username: Option<OpValsString>,
+}
+
+#[derive(FilterNodes, Deserialize, Default, Debug)]
+pub struct CourseFilter {
+  pub pk_user_id: Option<OpValsInt64>,
+  pub title: Option<OpValsString>,
 }

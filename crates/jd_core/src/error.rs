@@ -2,7 +2,6 @@ use std::env;
 use std::sync::Arc;
 
 use axum::{http::StatusCode, response::IntoResponse};
-use sea_query::Iden;
 use serde::Serialize;
 use thiserror::Error;
 

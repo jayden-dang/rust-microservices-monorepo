@@ -21,3 +21,5 @@ jd_infra = { path = "../jd_infra" }
 jd_api = { path = "../jd_api" }
 tracing-appender = "0.2.3"
 chrono = "0.4.38"
+tower-http = { version = "0.5.2", features = ["compression-full", "cors", "full"] }
+tower = { version = "0.4.13", features = ["full"] }
