@@ -1,5 +1,7 @@
 use jd_core::AppResult;
-use jd_domain::user::{Course, CourseFilter, RequestCreateCourse, RequestUpdateCourse, ResponseCreateCourse};
+use jd_domain::user::{
+  Course, CourseFilter, RequestCreateCourse, RequestUpdateCourse, ResponseCreateCourse,
+};
 use jd_infra::gen_common_fn;
 
 use super::CourseDmc;

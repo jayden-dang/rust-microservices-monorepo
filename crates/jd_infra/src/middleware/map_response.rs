@@ -1,6 +1,7 @@
 use axum::{
   body::to_bytes,
-  http::{Method, Uri},
+  extract::State,
+  http::{Method, StatusCode, Uri},
   response::{IntoResponse, Response},
   Json,
 };
@@ -11,7 +12,11 @@ use std::sync::Arc;
 use tracing::{debug, error};
 use uuid::Uuid;
 
-pub async fn mw_map_response(uri: Uri, req_method: Method, res: Response) -> Response {
+pub async fn mw_map_response(
+  uri: Uri,
+  req_method: Method,
+  res: Response,
+) -> Response {
   let uuid = Uuid::new_v4();
 
   let web_error = res.extensions().get::<Arc<AppError>>().map(Arc::as_ref);
@@ -73,7 +78,13 @@ pub async fn mw_map_response(uri: Uri, req_method: Method, res: Response) -> Res
   }
 }
 
-async fn log_request(uuid: Uuid, uri: Uri, req_method: Method, error_data: Value, status: u8) -> AppResult<()> {
+async fn log_request(
+  uuid: Uuid,
+  uri: Uri,
+  req_method: Method,
+  error_data: Value,
+  status: u8,
+) -> AppResult<()> {
   let log = RequestLogLine {
     uuid: uuid.to_string(),
     http_method: req_method.to_string(),
@@ -101,4 +112,16 @@ struct RequestLogLine {
   // -- Errors attributes.
   error_data: Value,
   status: u8,
+}
+
+pub async fn handler_404(// uri: Uri,
+  // req_method: Method,
+) -> Response {
+  let body = Json(json!({
+    "status" : 0,
+    "message" : "Route Not Found",
+    // "uri" : uri.to_string(),
+    // "method" : req_method.to_string()
+  }));
+  (StatusCode::NOT_FOUND, body).into_response()
 }

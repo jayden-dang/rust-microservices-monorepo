@@ -1,8 +1,6 @@
 use jd_infra::base::{CommonId, DMC};
 
-mod routes;
 mod services;
-
 pub use services::routes;
 
 pub struct UserDmc;

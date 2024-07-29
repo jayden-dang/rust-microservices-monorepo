@@ -25,25 +25,24 @@ User-Agent: Emacs30"
 ** User
 *** Get User By Id
 #+BEGIN_SRC restclient :var host=host :var headers=headers
-GET :host/api/v1/user/205
+GET :host/api/v1/aa
 :headers
 #+END_SRC
 
 #+RESULTS:
 #+BEGIN_SRC js
 {
-  "data": null,
-  "metadata": null,
-  "req_id": "8695164b-88e8-4613-a740-1a80a1f8f349",
-  "status": 1
+  "message": "Route Not Found",
+  "method": "GET",
+  "status": 0,
+  "uri": "/api/v1/aa"
 }
-// GET http://localhost:3333/api/v1/user/205
-// HTTP/1.1 200 OK
+// GET http://localhost:3333/api/v1/aa
+// HTTP/1.1 404 Not Found
 // content-type: application/json
-// content-length: 88
-// vary: origin, access-control-request-method, access-control-request-headers
-// date: Sun, 28 Jul 2024 15:24:11 GMT
-// Request duration: 0.014148s
+// content-length: 74
+// date: Mon, 29 Jul 2024 01:17:03 GMT
+// Request duration: 0.006449s
 #+END_SRC
 
 #+BEGIN_SRC js

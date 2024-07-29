@@ -2,11 +2,16 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use axum::body::Bytes;
-use axum::http::{header, HeaderValue};
+use axum::http::{header, HeaderValue, StatusCode};
+use axum::response::IntoResponse;
+use axum::Extension;
 use jd_core::config::ProdConfig;
 use jd_infra::initialed_db;
+use jd_infra::middleware::map_response::handler_404;
 use jd_infra::middleware::{map_response, mw_auth};
 mod trace;
+use sqlx::PgPool;
+use tokio::sync::RwLock;
 use tower::ServiceBuilder;
 use tower_http::cors::CorsLayer;
 use tower_http::timeout::TimeoutLayer;
@@ -20,6 +25,17 @@ use axum::{
 };
 use dotenv::dotenv;
 use tracing::info;
+
+#[derive(Clone)]
+pub struct AppState {
+  pub db: PgPool,
+}
+
+impl AppState {
+  pub fn new(db: PgPool) -> Arc<AppState> {
+    Arc::new(Self { db })
+  }
+}
 
 #[tokio::main]
 async fn main() {
@@ -52,13 +68,16 @@ async fn main() {
 
   let cfg = ProdConfig::from_env().expect("Cann't get env");
   let pool = initialed_db(&cfg.postgres.dsn, cfg.postgres.max_conns).await;
+  let state = AppState::new(pool.clone());
 
   let app = Router::new()
     .merge(jd_api::user_routes())
     .layer(middleware::map_response(map_response::mw_map_response))
-    .layer(middleware::from_fn_with_state(pool.clone(), mw_auth::mw_auth))
+    .layer(middleware::from_fn_with_state(state.clone(), mw_auth::mw_auth))
     .layer(CorsLayer::new())
     .layer(middleware)
+    // .layer(Extension(state))
+    .fallback(handler_404)
     .with_state(pool);
 
   let listener = tokio::net::TcpListener::bind(cfg.web.addr).await.unwrap();
